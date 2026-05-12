@@ -137,9 +137,12 @@ speed_scale = 0.01
 [node name="Trans" type="ColorRect" parent="." unique_id=1693797642]
 z_index = 4096
 material = SubResource("ShaderMaterial_nlkkf")
-layout_mode = 0
-offset_right = 320.0
-offset_bottom = 184.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 metadata/_edit_lock_ = true
@@ -180,17 +183,3 @@ theme_override_font_sizes/font_size = 16
 theme_override_styles/normal = SubResource("StyleBoxEmpty_8qtwp")
 text = "Dropdashin >>>
   >>> Brawlers"
-
-[node name="Label2" type="Label" parent="." unique_id=1067729250]
-visible = false
-layout_mode = 1
-offset_left = 8.0
-offset_top = 144.0
-offset_right = 154.0
-offset_bottom = 184.0
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_constants/outline_size = 4
-theme_override_constants/shadow_outline_size = 4
-theme_override_styles/normal = SubResource("StyleBoxEmpty_8qtwp")
-text = "Welcome to the main page,  nothing here to see yet."

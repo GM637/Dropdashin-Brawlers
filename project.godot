@@ -11,14 +11,19 @@ config_version=5
 [application]
 
 config/name="Dropdashin Brawlers"
-run/main_scene="uid://bwlfx8qng50n6"
+run/main_scene="uid://bctyidp3aj8si"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/stretch_mode=0
 config/icon="res://icon.svg"
 
 [audio]
 
 general/default_playback_type.web=0
+
+[autoload]
+
+ActionButtonAudio="*uid://dqc44ymqkgy64"
 
 [display]
 
@@ -29,6 +34,15 @@ window/size/window_height_override=720
 window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/dpi/allow_hidpi=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/action_button/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://o5aq64upgqbl"
+theme/custom_font="uid://dap6lqgy8dlrx"
 
 [input]
 

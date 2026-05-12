@@ -1,0 +1,196 @@
+[gd_scene format=3 uid="uid://bctyidp3aj8si"]
+
+[ext_resource type="Texture2D" uid="uid://boitm77hc87b6" path="res://Assets/Background parts/5 - Sky_color (2).png" id="1_glbon"]
+[ext_resource type="Texture2D" uid="uid://5fbko6qtp6u8" path="res://Assets/Background parts/4 - Background_clouds.png" id="2_nlkkf"]
+[ext_resource type="Texture2D" uid="uid://bivdamsh4gyr8" path="res://Assets/Background parts/3 - Cloud_cover_1.png" id="3_qe12f"]
+[ext_resource type="Texture2D" uid="uid://bjh05ebqjib31" path="res://Assets/Background parts/1 - Waters_version_1.png" id="5_dy7ct"]
+[ext_resource type="Shader" uid="uid://c4q88rus17ufp" path="res://Assets/trans.gdshader" id="5_glbon"]
+[ext_resource type="Script" uid="uid://di11q0mhb4hdo" path="res://addons/action_button/action_button.gd" id="6_8qtwp"]
+[ext_resource type="Script" uid="uid://bbmr3yytorn4r" path="res://addons/action_button/action_button_effect.gd" id="7_dy7ct"]
+[ext_resource type="AudioStream" uid="uid://b5vyle6fatqw2" path="res://Scenes/demo_action_button/assets/cursor.mp3" id="8_0o4t1"]
+
+[sub_resource type="Animation" id="Animation_06t4h"]
+resource_name = "new_animation"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(0, 0, 360, 208), Rect2(288, 0, 360, 208)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7vrkn"]
+_data = {
+&"new_animation": SubResource("Animation_06t4h")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nlkkf"]
+shader = ExtResource("5_glbon")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 10.0
+
+[sub_resource type="Animation" id="Animation_qe12f"]
+resource_name = "Intro"
+step = 0.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8qtwp"]
+_data = {
+&"Intro": SubResource("Animation_qe12f")
+}
+
+[sub_resource type="Resource" id="Resource_fcyx5"]
+script = ExtResource("7_dy7ct")
+position = Vector2(0, -1)
+metadata/_custom_type_script = "uid://bbmr3yytorn4r"
+
+[sub_resource type="Resource" id="Resource_0h0yp"]
+script = ExtResource("7_dy7ct")
+motion_duration = 0.05
+position = Vector2(0, 1)
+transition_type = 4
+ease_type = 1
+audio_stream = ExtResource("8_0o4t1")
+pitch_scale = 0.9
+metadata/_custom_type_script = "uid://bbmr3yytorn4r"
+
+[sub_resource type="Resource" id="Resource_w3kbx"]
+script = ExtResource("7_dy7ct")
+position = Vector2(0, -1)
+transition_type = 9
+ease_type = 1
+audio_stream = ExtResource("8_0o4t1")
+metadata/_custom_type_script = "uid://bbmr3yytorn4r"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qtwp"]
+
+[node name="MainMenu" type="Control" unique_id=1766785017]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BG" type="Sprite2D" parent="." unique_id=1576465594]
+texture_repeat = 2
+position = Vector2(160, 88)
+texture = ExtResource("1_glbon")
+region_enabled = true
+region_rect = Rect2(0, 0, 360, 208)
+
+[node name="BG2" type="Sprite2D" parent="BG" unique_id=1422784733]
+texture_repeat = 2
+texture = ExtResource("2_nlkkf")
+region_enabled = true
+region_rect = Rect2(0, 0, 360, 208)
+
+[node name="Loop" type="AnimationPlayer" parent="BG/BG2" unique_id=206637731]
+libraries/ = SubResource("AnimationLibrary_7vrkn")
+autoplay = &"new_animation"
+speed_scale = 0.04
+
+[node name="BG3" type="Sprite2D" parent="BG" unique_id=1143152539]
+texture_repeat = 2
+texture = ExtResource("3_qe12f")
+region_enabled = true
+region_rect = Rect2(0, 0, 360, 208)
+
+[node name="Loop" type="AnimationPlayer" parent="BG/BG3" unique_id=1566608772]
+libraries/ = SubResource("AnimationLibrary_7vrkn")
+autoplay = &"new_animation"
+speed_scale = 0.02
+
+[node name="BG4" type="Sprite2D" parent="BG" unique_id=510860771]
+texture_repeat = 2
+texture = ExtResource("5_dy7ct")
+region_enabled = true
+region_rect = Rect2(0, 0, 360, 208)
+
+[node name="Loop" type="AnimationPlayer" parent="BG/BG4" unique_id=1309828103]
+libraries/ = SubResource("AnimationLibrary_7vrkn")
+autoplay = &"new_animation"
+speed_scale = 0.1
+
+[node name="Loop" type="AnimationPlayer" parent="BG" unique_id=554001927]
+libraries/ = SubResource("AnimationLibrary_7vrkn")
+autoplay = &"new_animation"
+speed_scale = 0.01
+
+[node name="Trans" type="ColorRect" parent="." unique_id=1693797642]
+z_index = 4096
+material = SubResource("ShaderMaterial_nlkkf")
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 184.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="Anim" type="AnimationPlayer" parent="Trans" unique_id=826958410]
+libraries/ = SubResource("AnimationLibrary_8qtwp")
+autoplay = &"Intro"
+
+[node name="ButtonPlus" type="Button" parent="." unique_id=1953675017]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = -23.0
+offset_right = 88.0
+offset_bottom = -7.0
+grow_vertical = 0
+size_flags_vertical = 3
+text = "Coming soon!"
+script = ExtResource("6_8qtwp")
+on_hover = SubResource("Resource_fcyx5")
+on_button_down = SubResource("Resource_0h0yp")
+on_button_up = SubResource("Resource_w3kbx")
+metadata/_custom_type_script = "uid://di11q0mhb4hdo"
+
+[node name="Label" type="Label" parent="." unique_id=503853972]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 154.0
+offset_bottom = 48.0
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 8
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8qtwp")
+text = "Dropdashin >>>
+  >>> Brawlers"
+
+[node name="Label2" type="Label" parent="." unique_id=1067729250]
+visible = false
+layout_mode = 1
+offset_left = 8.0
+offset_top = 144.0
+offset_right = 154.0
+offset_bottom = 184.0
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 4
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8qtwp")
+text = "Welcome to the main page,  nothing here to see yet."

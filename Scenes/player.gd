@@ -34,6 +34,25 @@ var cancel = false
 var dash_timer: float = 0.0
 var last_direction: float = 1.0
 
+# Multiplayer States
+var lives: int = 3
+var vulnerability : float = 0.0 # this is actually a percentage, as oer traditional arena fighters go
+
+func get_unreliable_data() -> Dictionary:
+	return {
+		"pos": global_position,
+		"vel_mag": velocity.length(),
+		"dashing": is_dashing,
+		"anim": sprite.animation,
+		"flip": sprite.flip_h
+	}
+
+func get_reliable_data() -> Dictionary:
+	return {
+		"lives": lives,
+		"vulnerable": vulnerability
+	}
+
 func _physics_process(delta: float) -> void:
 	if not visible:
 		return

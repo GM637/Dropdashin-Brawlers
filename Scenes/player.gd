@@ -4,7 +4,7 @@ class_name Player
 
 @onready var sprite: AnimatedSprite2D = $Sprite
 
-var skin: String = "Bitty"
+var skin: String = "Jerry"
 
 var speed: float = 180.0
 var acceleration: float = 2000.0

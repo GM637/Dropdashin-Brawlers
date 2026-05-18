@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://di11q0mhb4hdo" path="res://addons/action_button/action_button.gd" id="6_8qtwp"]
 [ext_resource type="Script" uid="uid://bbmr3yytorn4r" path="res://addons/action_button/action_button_effect.gd" id="7_dy7ct"]
 [ext_resource type="AudioStream" uid="uid://b5vyle6fatqw2" path="res://Scenes/demo_action_button/assets/cursor.mp3" id="8_0o4t1"]
+[ext_resource type="AudioStream" uid="uid://ly4xiyy8f0d2" path="res://Assets/Music/Pixel Battle Ready.mp3" id="10_16hvj"]
 
 [sub_resource type="Animation" id="Animation_06t4h"]
 resource_name = "new_animation"
@@ -24,7 +25,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Rect2(0, 0, 360, 208), Rect2(288, 0, 360, 208)]
+"values": [Rect2(0, 0, 560, 208), Rect2(288, 0, 560, 208)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7vrkn"]
@@ -60,9 +61,12 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_trj04"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qtwp"]
+
 [sub_resource type="Resource" id="Resource_fcyx5"]
 script = ExtResource("7_dy7ct")
 position = Vector2(0, -1)
+bus = &"SFX"
 metadata/_custom_type_script = "uid://bbmr3yytorn4r"
 
 [sub_resource type="Resource" id="Resource_0h0yp"]
@@ -73,6 +77,7 @@ transition_type = 4
 ease_type = 1
 audio_stream = ExtResource("8_0o4t1")
 pitch_scale = 0.9
+bus = &"SFX"
 metadata/_custom_type_script = "uid://bbmr3yytorn4r"
 
 [sub_resource type="Resource" id="Resource_w3kbx"]
@@ -81,9 +86,8 @@ position = Vector2(0, -1)
 transition_type = 9
 ease_type = 1
 audio_stream = ExtResource("8_0o4t1")
+bus = &"SFX"
 metadata/_custom_type_script = "uid://bbmr3yytorn4r"
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8qtwp"]
 
 [node name="MainMenu" type="Control" unique_id=1766785017]
 layout_mode = 3
@@ -96,16 +100,17 @@ script = ExtResource("1_trj04")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=1576465594]
 texture_repeat = 2
-position = Vector2(160, 81)
+position = Vector2(520, 160)
+scale = Vector2(2, 2)
 texture = ExtResource("1_glbon")
 region_enabled = true
-region_rect = Rect2(0, 0, 360, 208)
+region_rect = Rect2(0, 0, 560, 208)
 
 [node name="BG2" type="Sprite2D" parent="BG" unique_id=1422784733]
 texture_repeat = 2
 texture = ExtResource("2_nlkkf")
 region_enabled = true
-region_rect = Rect2(0, 0, 360, 208)
+region_rect = Rect2(0, 0, 560, 208)
 
 [node name="Loop" type="AnimationPlayer" parent="BG/BG2" unique_id=206637731]
 libraries/ = SubResource("AnimationLibrary_7vrkn")
@@ -117,7 +122,7 @@ texture_repeat = 2
 position = Vector2(0, 16)
 texture = ExtResource("3_qe12f")
 region_enabled = true
-region_rect = Rect2(0, 0, 360, 208)
+region_rect = Rect2(0, 0, 560, 208)
 
 [node name="Loop" type="AnimationPlayer" parent="BG/BG3" unique_id=1566608772]
 libraries/ = SubResource("AnimationLibrary_7vrkn")
@@ -128,22 +133,35 @@ speed_scale = 0.14
 texture_repeat = 2
 texture = ExtResource("5_dy7ct")
 region_enabled = true
-region_rect = Rect2(0, 0, 360, 208)
+region_rect = Rect2(0, 0, 560, 208)
 
 [node name="Loop" type="AnimationPlayer" parent="BG/BG4" unique_id=1309828103]
 libraries/ = SubResource("AnimationLibrary_7vrkn")
 autoplay = &"new_animation"
 speed_scale = 0.4
 
+[node name="BG5" type="Sprite2D" parent="BG" unique_id=658395314]
+texture_repeat = 2
+position = Vector2(-2, 621.25)
+scale = Vector2(1.5666667, 115.944435)
+texture = ExtResource("5_dy7ct")
+region_enabled = true
+region_rect = Rect2(0, 199, 360, 9)
+
 [node name="Loop" type="AnimationPlayer" parent="BG" unique_id=554001927]
 libraries/ = SubResource("AnimationLibrary_7vrkn")
 autoplay = &"new_animation"
 
-[node name="BG" type="ColorRect" parent="BG" unique_id=1261096200]
-offset_left = -280.0
-offset_top = 79.0
-offset_right = 240.0
-offset_bottom = 127.0
+[node name="BG2" type="ColorRect" parent="." unique_id=1261096200]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -22.0
+offset_right = 944.0
+offset_bottom = 26.0
+grow_vertical = 0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.7176471)
 
@@ -164,8 +182,24 @@ metadata/_edit_lock_ = true
 libraries/ = SubResource("AnimationLibrary_8qtwp")
 autoplay = &"Intro"
 
+[node name="Connecting" type="Label" parent="." unique_id=1626210474]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -18.0
+offset_right = 115.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.105882354, 0.078431375, 0.11764706, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.6)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
+text = "Connecting..."
+
 [node name="Username" type="LineEdit" parent="." unique_id=1107582090]
-visible = false
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -189,7 +223,82 @@ theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
 text = "Hit Enter to
 Join a random lobby."
 
-[node name="ComingSoon" type="Button" parent="." unique_id=231211758]
+[node name="Title" type="Label" parent="." unique_id=503853972]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 316.0
+offset_bottom = 92.0
+theme_override_constants/line_spacing = -4
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 16
+theme_override_constants/shadow_outline_size = 16
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8qtwp")
+text = "Dropdashin >>>
+ >>> Brawlers"
+
+[node name="BG2" type="ColorRect" parent="Title" unique_id=1625695721]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -80.0
+offset_top = 11.0
+offset_right = 808.0
+offset_bottom = 59.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.7176471)
+
+[node name="Info" type="Label" parent="." unique_id=867157452]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 104.0
+offset_right = 313.0
+offset_bottom = 114.0
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
+text = "Vibecoded in 5 days for Open Source Vibejam 2026"
+
+[node name="Info2" type="Label" parent="." unique_id=720757339]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -296.0
+offset_top = -18.0
+offset_right = -7.0
+offset_bottom = -8.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
+text = "Playtest v0.1"
+horizontal_alignment = 2
+
+[node name="Menu" type="AudioStreamPlayer" parent="." unique_id=322293867]
+stream = ExtResource("10_16hvj")
+autoplay = true
+bus = &"Music"
+
+[node name="C" type="Control" parent="." unique_id=1501599133]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="ComingSoon" type="Button" parent="C" unique_id=231211758]
+visible = false
 modulate = Color(0.33463544, 0.33463544, 0.33463544, 1)
 layout_mode = 1
 anchors_preset = 2
@@ -208,7 +317,7 @@ on_button_down = SubResource("Resource_0h0yp")
 on_button_up = SubResource("Resource_w3kbx")
 metadata/_custom_type_script = "uid://di11q0mhb4hdo"
 
-[node name="Info" type="Label" parent="ComingSoon" unique_id=1744688738]
+[node name="Info" type="Label" parent="C/ComingSoon" unique_id=1744688738]
 layout_mode = 0
 offset_left = 3.0
 offset_top = -7.0
@@ -217,7 +326,7 @@ offset_bottom = 3.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
 text = "Coming Soon!"
 
-[node name="Credits" type="Button" parent="." unique_id=719362670]
+[node name="Credits" type="Button" parent="C" unique_id=719362670]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -235,33 +344,42 @@ on_button_down = SubResource("Resource_0h0yp")
 on_button_up = SubResource("Resource_w3kbx")
 metadata/_custom_type_script = "uid://di11q0mhb4hdo"
 
-[node name="Panel" type="Label" parent="Credits" unique_id=379519063]
+[node name="Panel" type="Label" parent="C/Credits" unique_id=379519063]
 visible = false
-layout_mode = 0
-offset_left = -56.0
-offset_top = -80.0
-offset_right = 116.0
-offset_bottom = -17.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -126.0
+offset_right = 36.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_color = Color(0.54296875, 0.54296875, 0.54296875, 1)
-theme_override_constants/line_spacing = 0
-text = "Engine : Godot
-Vibecode agent : Ziva (Gemini3)
-Hosting : Github
-Multiplayer : Playroom.gg
-Game : GM637
-Assets : https://grafxkid.itch.io"
+theme_override_constants/line_spacing = 5
+text = "Engine Godot
+Agent Ziva(Gemini3)
+Hosting Github
+Multiplayer Playroom.gg
+Game GM637
+Music Suno.ai
+Assets grafxkid.itch.io"
+horizontal_alignment = 3
 
-[node name="BG" type="ColorRect" parent="Credits/Panel" unique_id=1345127841]
+[node name="BG" type="ColorRect" parent="C/Credits/Panel" unique_id=1345127841]
 show_behind_parent = true
 layout_mode = 0
-offset_left = -200.0
-offset_top = 8.0
-offset_right = 320.0
-offset_bottom = 56.0
+offset_left = -80.0
+offset_top = 52.0
+offset_right = 808.0
+offset_bottom = 100.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.7176471)
 
-[node name="Options" type="Button" parent="." unique_id=1953675017]
+[node name="Options" type="Button" parent="C" unique_id=1953675017]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -279,24 +397,23 @@ on_button_down = SubResource("Resource_0h0yp")
 on_button_up = SubResource("Resource_w3kbx")
 metadata/_custom_type_script = "uid://di11q0mhb4hdo"
 
-[node name="Panel" type="Label" parent="Options" unique_id=310498658]
+[node name="Panel" type="Label" parent="C/Options" unique_id=310498658]
 visible = false
 layout_mode = 0
-offset_left = -128.0
+offset_left = -184.0
 offset_top = -80.0
-offset_right = 56.0
-offset_bottom = -12.0
+offset_bottom = -7.0
 
-[node name="Master" type="HSlider" parent="Options/Panel" unique_id=793823971]
+[node name="Master" type="HSlider" parent="C/Options/Panel" unique_id=793823971]
 layout_mode = 0
 offset_left = 8.0
 offset_right = 56.0
 offset_bottom = 28.0
 theme_override_constants/center_grabber = 1
-max_value = 1.0
+max_value = 2.0
 step = 0.001
 
-[node name="Info" type="Label" parent="Options/Panel/Master" unique_id=1657154662]
+[node name="Info" type="Label" parent="C/Options/Panel/Master" unique_id=1657154662]
 layout_mode = 0
 offset_left = 56.0
 offset_top = 8.0
@@ -305,17 +422,17 @@ offset_bottom = 18.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
 text = "Master Volume"
 
-[node name="Music" type="HSlider" parent="Options/Panel" unique_id=1832482329]
+[node name="Music" type="HSlider" parent="C/Options/Panel" unique_id=1832482329]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 16.0
 offset_right = 56.0
 offset_bottom = 44.0
 theme_override_constants/center_grabber = 1
-max_value = 1.0
+max_value = 2.0
 step = 0.001
 
-[node name="Info" type="Label" parent="Options/Panel/Music" unique_id=474880665]
+[node name="Info" type="Label" parent="C/Options/Panel/Music" unique_id=474880665]
 layout_mode = 0
 offset_left = 56.0
 offset_top = 8.0
@@ -324,17 +441,17 @@ offset_bottom = 18.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
 text = "Music Volume"
 
-[node name="SFX" type="HSlider" parent="Options/Panel" unique_id=1693675508]
+[node name="SFX" type="HSlider" parent="C/Options/Panel" unique_id=1693675508]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 32.0
 offset_right = 56.0
 offset_bottom = 60.0
 theme_override_constants/center_grabber = 1
-max_value = 1.0
+max_value = 2.0
 step = 0.001
 
-[node name="Info" type="Label" parent="Options/Panel/SFX" unique_id=515180419]
+[node name="Info" type="Label" parent="C/Options/Panel/SFX" unique_id=515180419]
 layout_mode = 0
 offset_left = 56.0
 offset_top = 8.0
@@ -343,18 +460,17 @@ offset_bottom = 18.0
 theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
 text = "SFX Volume"
 
-[node name="BG" type="ColorRect" parent="Options/Panel" unique_id=552204773]
+[node name="BG" type="ColorRect" parent="C/Options/Panel" unique_id=552204773]
 show_behind_parent = true
 layout_mode = 0
-offset_left = -200.0
-offset_top = 8.0
-offset_right = 320.0
-offset_bottom = 56.0
+offset_left = -80.0
+offset_top = 16.0
+offset_right = 808.0
+offset_bottom = 64.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.7176471)
 
-[node name="Github" type="Button" parent="." unique_id=1477061794]
-modulate = Color(0.33463544, 0.33463544, 0.33463544, 1)
+[node name="Github" type="Button" parent="C" unique_id=1477061794]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -371,28 +487,3 @@ on_hover = SubResource("Resource_fcyx5")
 on_button_down = SubResource("Resource_0h0yp")
 on_button_up = SubResource("Resource_w3kbx")
 metadata/_custom_type_script = "uid://di11q0mhb4hdo"
-
-[node name="Title" type="Label" parent="." unique_id=503853972]
-layout_mode = 1
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 154.0
-offset_bottom = 48.0
-theme_override_constants/line_spacing = -4
-theme_override_constants/shadow_offset_x = 2
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 8
-theme_override_constants/shadow_outline_size = 8
-theme_override_font_sizes/font_size = 16
-theme_override_styles/normal = SubResource("StyleBoxEmpty_8qtwp")
-text = "Dropdashin >>>
- >>> Brawlers"
-
-[node name="Info" type="Label" parent="." unique_id=867157452]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 48.0
-offset_right = 297.0
-offset_bottom = 58.0
-theme_override_styles/normal = SubResource("StyleBoxEmpty_trj04")
-text = "Vibecoded in 5 days for Open Source Vibejam 2026"

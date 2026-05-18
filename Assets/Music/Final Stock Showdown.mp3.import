@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhbgk4ve5ayrh"
+path="res://.godot/imported/Final Stock Showdown.mp3-a4e7d00b1c243ddd23344319e72bf0d1.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/Final Stock Showdown.mp3"
+dest_files=["res://.godot/imported/Final Stock Showdown.mp3-a4e7d00b1c243ddd23344319e72bf0d1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

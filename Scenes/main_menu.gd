@@ -2,71 +2,74 @@ extends Control
 
 @onready var username: LineEdit = $Username
 @onready var show_enter: Label = $Username/Enter
-@onready var options: ActionButton = $Options
-@onready var credits: ActionButton = $Credits
+@onready var options: ActionButton = $C/Options
+@onready var credits: ActionButton = $C/Credits
+@onready var github: ActionButton = $C/Github
 
+@onready var master: HSlider = $C/Options/Panel/Master
+@onready var music: HSlider = $C/Options/Panel/Music
+@onready var sfx: HSlider = $C/Options/Panel/SFX
 
-#Fetch Playroom Kit
-var Playroom = JavaScriptBridge.get_interface("Playroom")
- 
-# Keep a reference to the callback so it doesn't get garbage collected
-var jsBridgeReferences = []
-func bridgeToJS(cb):
-	var jsCallback = JavaScriptBridge.create_callback(cb)
-	jsBridgeReferences.push_back(jsCallback)
-	return jsCallback
+@onready var Playroom = Player.Playroom
  
 func _ready() -> void:
 	
 	credits.pressed.connect(func():
-		$Credits/Panel.visible = !$Credits/Panel.visible
-		$Options/Panel.hide()
+		$C/Credits/Panel.visible = !$C/Credits/Panel.visible
+		$C/Options/Panel.hide()
 		$Username.text = ""
 		)
 	options.pressed.connect(func():
-		$Options/Panel.visible = !$Options/Panel.visible
-		$Credits/Panel.hide()
+		$C/Options/Panel.visible = !$C/Options/Panel.visible
+		$C/Credits/Panel.hide()
 		$Username.text = ""
+		
+		master.value = AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("Master"))
+		music.value = AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("Music"))
+		sfx.value = AudioServer.get_bus_volume_linear(AudioServer.get_bus_index("SFX"))
+		
+		)
+	github.pressed.connect(func():
+		OS.shell_open("https://github.com/GM637/Dropdashin-Brawlers")
 		)
 	
 	username.focus_entered.connect(func():
-		$Credits/Panel.hide()
-		$Options/Panel.hide()
+		$C/Credits/Panel.hide()
+		$C/Options/Panel.hide()
+		)
+	
+	master.value_changed.connect(func(v:float):
+		AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Master"),v)
+		)
+	music.value_changed.connect(func(v:float):
+		AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("Music"),v)
+		)
+	sfx.value_changed.connect(func(v:float):
+		AudioServer.set_bus_volume_linear(AudioServer.get_bus_index("SFX"),v)
 		)
 	
 	if !OS.has_feature("web") :
 		username.placeholder_text = "Play on web."
 	username.editable = OS.has_feature("web")
 	
+	await username.text_submitted
+	Player.username = username.text
+	
+	$Username.release_focus()
+	$Username.hide()
+	
+	PlayroomJoining.join()
+	
+	await PlayroomJoining.joined
+	
+	$Connecting.text = "Game Joined!"
+	$Trans/Anim.play_backwards("Intro")
+	await $Trans/Anim.animation_finished
+	
+	get_tree().change_scene_to_file("res://Scenes/game.tscn")
 
 func _process(delta: float) -> void:
 	
 	show_enter.visible = username.text != ""
 	
  
-func join():
-	JavaScriptBridge.eval("")
-	var initOptions = JavaScriptBridge.create_object("Object");
- 
-	#Init Options
-	initOptions.gameId = "<BdXdXXHfhyvdDA5uweKe>"
- 
-	#Insert Coin
-	Playroom.insertCoin(initOptions, bridgeToJS(onInsertCoin));
- 
-# Called when the host has started the game
-func onInsertCoin(args):
-	print("Coin Inserted!")
-	Playroom.onPlayerJoin(bridgeToJS(onPlayerJoin))
- 
-# Called when a new player joins the game
-func onPlayerJoin(args):
-	var state = args[0]
-	print("new player joined: ", state.id)
- 
-	# Listen to onQuit event
-	state.onQuit(bridgeToJS(onPlayerQuit))
- 
-func onPlayerQuit(args):
-	var state = args[0];
-	print("player quit: ", state.id)

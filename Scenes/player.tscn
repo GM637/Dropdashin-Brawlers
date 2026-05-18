@@ -2,6 +2,20 @@
 
 [ext_resource type="Script" uid="uid://c6o1vjhehavn1" path="res://Scenes/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://b1q0kfegiyknv" path="res://Assets/players.png" id="1_v0iea"]
+[ext_resource type="Texture2D" uid="uid://d7ggl7v806ln" path="res://Assets/poof_pars.png" id="2_6t5aa"]
+[ext_resource type="Texture2D" uid="uid://co0ntcfk0uo8r" path="res://Assets/dust_pars.png" id="3_vgqql"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vgqql"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fkybt"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v0iea"]
 atlas = ExtResource("1_v0iea")
@@ -372,20 +386,72 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8erm5"]
 size = Vector2(8, 15)
 
-[node name="Player" type="CharacterBody2D" unique_id=667697584]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cvnsp"]
+
+[node name="Player" type="CharacterBody2D" unique_id=667697584 groups=["Players"]]
+collision_layer = 2
+floor_constant_speed = true
+floor_max_angle = 0.8412487
+floor_snap_length = 8.0
 script = ExtResource("1_cvnsp")
 
+[node name="Dust" type="CPUParticles2D" parent="." unique_id=754333960]
+material = SubResource("CanvasItemMaterial_vgqql")
+emitting = false
+amount = 16
+texture = ExtResource("2_6t5aa")
+randomness = 1.0
+lifetime_randomness = 0.28
+gravity = Vector2(0, -32)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="Stars" type="CPUParticles2D" parent="." unique_id=1750354169]
+material = SubResource("CanvasItemMaterial_fkybt")
+position = Vector2(0, -8)
+emitting = false
+amount = 24
+texture = ExtResource("3_vgqql")
+randomness = 0.95
+emission_shape = 1
+emission_sphere_radius = 4.0
+gravity = Vector2(0, -32)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
 [node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1745960842]
+texture_repeat = 2
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_3smsa")
-animation = &"IdlePebby"
+animation = &"RunTimmy"
 autoplay = "IdlePebby"
-frame_progress = 0.8018562
 speed_scale = 2.0
-offset = Vector2(0, -7)
+offset = Vector2(0, -3)
 
 [node name="Col" type="CollisionShape2D" parent="." unique_id=1651690882]
 position = Vector2(0, -7.5)
 shape = SubResource("RectangleShape2D_8erm5")
 
 [node name="DashAnim" type="AnimationPlayer" parent="." unique_id=1795972148]
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=371028011]
+collision_layer = 16
+collision_mask = 2
+
+[node name="Col" type="CollisionShape2D" parent="Hitbox" unique_id=1294621049]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_8erm5")
+
+[node name="Username" type="Label" parent="." unique_id=149666613]
+z_index = 489
+offset_left = -32.0
+offset_top = -3.0
+offset_right = 32.0
+offset_bottom = 15.0
+scale = Vector2(0.5, 0.5)
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cvnsp")
+text = "Test"
+horizontal_alignment = 1
